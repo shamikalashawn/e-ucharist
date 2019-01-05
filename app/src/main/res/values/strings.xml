@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">E-ucharist</string>
+    <string name="information_menu">About</string>
+    <string name="eucharist_menu">E-ucharist</string>
+    <string name="title_activity_info">InfoActivity</string>
+    <string name="instructions">Press to begin</string>
+    <string name="website"><a href="https://e-ucharist.com">e-ucharist.com</a></string>
+    <string name="preparation">Preparation</string>
+    <string name="communion0">"My Jesus,"</string>
+    <string name="communion1">"I believe that You are present in the Most Holy Sacrament."</string>
+    <string name="communion2">"I love You above all things, and I desire to receive You into my soul."</string>
+    <string name="communion3">"Since I cannot at this moment receive You physically, come at least digitally into my heart."</string>
+    <string name="communion4">"I embrace You as if You were already there and unite myself wholly to You."</string>
+    <string name="communion5">"Never permit me to be separated from You."</string>
+    <string name="communion6">"Amen."</string>
+    <string name="title">E-ucharist</string>
+</resources>
