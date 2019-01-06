@@ -25,6 +25,11 @@ public class EucharistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eucharist);
 
+        //call MusicService
+        startService(new Intent(this, MusicService.class));
+
+
+
         communion = Arrays.asList(
                 getString(R.string.communion0),
                 getString(R.string.communion1),
@@ -47,8 +52,29 @@ public class EucharistActivity extends AppCompatActivity {
                     prayer.setText(communion.get(communionIndex));
                     communionIndex++;
                 } else{
+                    stopService(new Intent(EucharistActivity.this, MusicService.class));
+                    //Animating alpha with objectAnimator
+                    /*
+                    ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(prayer,"alpha",1,0);
+                    objectAnimator.setDuration(2000);
+                    objectAnimator.start();
+                    */
+
+                    //Animating with AlphaAnimation
+                    /*
+                    AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
+                    alphaAnimation.setDuration(2000);
+                    alphaAnimation.setFillAfter(true);
+                    eucharistLayout.startAnimation(alphaAnimation);
+                    */
+
+
+                    //Animating with xml: fades out current activity and fades in other
+
+
                     Intent intent = new Intent(EucharistActivity.this, MainActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.fadein,R.anim.fadeout);
                 }
             }
         });
