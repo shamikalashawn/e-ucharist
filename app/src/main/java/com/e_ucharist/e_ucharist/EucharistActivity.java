@@ -1,17 +1,25 @@
 package com.e_ucharist.e_ucharist;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.animation.Animator.AnimatorListener;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class EucharistActivity extends AppCompatActivity {
 
@@ -20,14 +28,28 @@ public class EucharistActivity extends AppCompatActivity {
 
     int communionIndex;
 
+    private MediaPlayer player;
+    private float volume;
+
+//    private Vibrator vibration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eucharist);
 
-        //call MusicService
-        startService(new Intent(this, MusicService.class));
+        volume = 1;
 
+        //call MusicService
+        //startService(new Intent(this, MusicService.class));
+
+        //create vibrator object
+//        vibration = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+
+        //Creates a global player MediaPlayer object to play sound
+        player = MediaPlayer.create(this, R.raw.singing_bowl);
+        player.setLooping(false);
+        player.start();
 
 
         communion = Arrays.asList(
@@ -44,6 +66,7 @@ public class EucharistActivity extends AppCompatActivity {
 
         RelativeLayout eucharistLayout = (RelativeLayout) findViewById(R.id.eucharist_layout);
         final TextView prayer = (TextView) findViewById(R.id.prayer);
+        final ImageView wafer = (ImageView) findViewById(R.id.wafer);
 
         eucharistLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,33 +74,55 @@ public class EucharistActivity extends AppCompatActivity {
                 if (communionIndex < 7) {
                     prayer.setText(communion.get(communionIndex));
                     communionIndex++;
-                } else{
-                    stopService(new Intent(EucharistActivity.this, MusicService.class));
+                } else if (communionIndex == 7) {
+//                    prayer.setText(communion.get(communionIndex));
+
                     //Animating alpha with objectAnimator
-                    /*
-                    ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(prayer,"alpha",1,0);
-                    objectAnimator.setDuration(2000);
-                    objectAnimator.start();
-                    */
+                    ObjectAnimator objectAnimatorPrayer = ObjectAnimator.ofFloat(prayer,"alpha",1,0);
+                    ObjectAnimator objectAnimatorWafer = ObjectAnimator.ofFloat(wafer,"alpha",1,0);
 
-                    //Animating with AlphaAnimation
-                    /*
-                    AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
-                    alphaAnimation.setDuration(2000);
-                    alphaAnimation.setFillAfter(true);
-                    eucharistLayout.startAnimation(alphaAnimation);
-                    */
+                    objectAnimatorPrayer.setDuration(2000);
+                    objectAnimatorPrayer.start();
 
+                    objectAnimatorWafer.setDuration(2000);
+                    objectAnimatorWafer.start();
 
-                    //Animating with xml: fades out current activity and fades in other
+                    objectAnimatorPrayer.addListener(new AnimatorListener(){
 
+                        @Override
+                        public void onAnimationStart(Animator animation) {
 
-                    Intent intent = new Intent(EucharistActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation){
+                            startFadeOut();
+                            Intent intent = new Intent(EucharistActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    });
                 }
+
             }
         });
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        player.stop();
     }
 
     @Override
@@ -108,4 +153,37 @@ public class EucharistActivity extends AppCompatActivity {
     }
 
 
+    private void startFadeOut(){
+        final int FADE_DURATION = 2000; //The duration of the fade
+        //The amount of time between volume changes. The smaller this is, the smoother the fade
+        final int FADE_INTERVAL = 250;
+        final int MAX_VOLUME = 1; //The volume will decrease from 1 to 0
+        int numberOfSteps = FADE_DURATION/FADE_INTERVAL; //Calculate the number of fade steps
+        //Calculate by how much the volume changes each step
+        final float deltaVolume = MAX_VOLUME / (float)numberOfSteps;
+
+        //Create a new Timer and Timer task to run the fading outside the main UI thread
+        final Timer timer = new Timer(true);
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                fadeOutStep(deltaVolume); //Do a fade step
+                //Cancel and Purge the Timer if the desired volume has been reached
+                if(volume<=0){
+                    timer.cancel();
+                    timer.purge();
+                    player.stop();
+                }
+
+            }
+        };
+
+        timer.schedule(timerTask,FADE_INTERVAL,FADE_INTERVAL);
+    }
+
+    private void fadeOutStep(float deltaVolume){
+        player.setVolume(volume, volume);
+        volume -= deltaVolume;
+
+    }
 }
