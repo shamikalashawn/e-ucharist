@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/eucharist_layout"
-    tools:context=".EucharistActivity">
+    tools:context=".EucharistActivity"
+    android:background="@android:color/white">
 
     <ImageView
         android:id="@+id/wafer"
