@@ -54,7 +54,7 @@ public class EucharistActivity extends AppCompatActivity {
 
         //Creates a global player MediaPlayer object to play sound
         player = MediaPlayer.create(this, R.raw.singing_bowl);
-        player.setLooping(false);
+        player.setLooping(true);
         player.start();
 
 
