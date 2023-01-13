@@ -1,17 +1,16 @@
 package com.e_ucharist.e_ucharist;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.asynclayoutinflater.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // remove title
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
@@ -29,22 +28,12 @@ public class MainActivity extends AppCompatActivity {
         website.setMovementMethod(LinkMovementMethod.getInstance());
 
         FrameLayout mainLayout = (FrameLayout) findViewById(R.id.main_layout);
-        final ImageView wafer = (ImageView) findViewById(R.id.wafer);
+        final ImageView wafer = (ImageView) findViewById(R.id.wafer_bg);
         final TextView instructions = (TextView) findViewById(R.id.instructions);
 
-        wafer.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                    startIntent();
-            }
-        });
+        wafer.setOnClickListener(v -> startIntent());
 
-        instructions.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                startIntent();
-            }
-        });
+        instructions.setOnClickListener(v -> startIntent());
     }
 
     private void startIntent(){

@@ -1,27 +1,26 @@
 package com.e_ucharist.e_ucharist;
 
 import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
+import android.annotation.NonNull;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.os.Vibrator;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.animation.Animator.AnimatorListener;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class EucharistActivity extends AppCompatActivity {
 
@@ -39,7 +38,7 @@ public class EucharistActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // remove title
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_eucharist);
@@ -70,58 +69,55 @@ public class EucharistActivity extends AppCompatActivity {
 
         communionIndex = 0;
 
-        RelativeLayout eucharistLayout = (RelativeLayout) findViewById(R.id.eucharist_layout);
-        final TextView prayer = (TextView) findViewById(R.id.prayer);
-        final ImageView wafer = (ImageView) findViewById(R.id.wafer);
+        RelativeLayout eucharistLayout = findViewById(R.id.eucharist_layout);
+        final TextView prayer = findViewById(R.id.prayer);
+        final ImageView wafer = findViewById(R.id.wafer);
 
-        eucharistLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (communionIndex < 7) {
-                    prayer.setText(communion.get(communionIndex));
-                    communionIndex++;
-                } else if (communionIndex == 7) {
+        eucharistLayout.setOnClickListener(v -> {
+            if (communionIndex < 7) {
+                prayer.setText(communion.get(communionIndex));
+                communionIndex++;
+            } else if (communionIndex == 7) {
 //                    prayer.setText(communion.get(communionIndex));
 
-                    //Animating alpha with objectAnimator
-                    ObjectAnimator objectAnimatorPrayer = ObjectAnimator.ofFloat(prayer,"alpha",1,0);
-                    ObjectAnimator objectAnimatorWafer = ObjectAnimator.ofFloat(wafer,"alpha",1,0);
+                //Animating alpha with objectAnimator
+                ObjectAnimator objectAnimatorPrayer = ObjectAnimator.ofFloat(prayer,"alpha",1,0);
+                ObjectAnimator objectAnimatorWafer = ObjectAnimator.ofFloat(wafer,"alpha",1,0);
 
-                    objectAnimatorPrayer.setDuration(2000);
-                    objectAnimatorPrayer.start();
+                objectAnimatorPrayer.setDuration(2000);
+                objectAnimatorPrayer.start();
 
-                    objectAnimatorWafer.setDuration(2000);
-                    objectAnimatorWafer.start();
+                objectAnimatorWafer.setDuration(2000);
+                objectAnimatorWafer.start();
 
-                    objectAnimatorPrayer.addListener(new AnimatorListener(){
+                objectAnimatorPrayer.addListener(new AnimatorListener(){
 
-                        @Override
-                        public void onAnimationStart(Animator animation) {
+                    @Override
+                    public void onAnimationStart(@NonNull Animator animation) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onAnimationEnd(Animator animation){
-                            startFadeOut();
-                            Intent intent = new Intent(EucharistActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+                    @Override
+                    public void onAnimationEnd(@NonNull Animator animation){
+                        startFadeOut();
+                        Intent intent = new Intent(EucharistActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 
-                        }
+                    }
 
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
+                    @Override
+                    public void onAnimationCancel(@NonNull Animator animation) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
+                    @Override
+                    public void onAnimationRepeat(@NonNull Animator animation) {
 
-                        }
-                    });
-                }
-
+                    }
+                });
             }
+
         });
     }
 

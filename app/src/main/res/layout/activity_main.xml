@@ -7,7 +7,7 @@
     android:id="@+id/main_layout"
     tools:context=".MainActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
@@ -18,7 +18,10 @@
             android:id="@+id/wafer_bg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="TODO"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/wafer_image" />
 
         <TextView
@@ -38,22 +41,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintVertical_bias="1.0" />
-
-        <ImageView
-            android:id="@+id/wafer"
-            android:layout_width="338dp"
-            android:layout_height="167dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="108dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:contentDescription="TODO"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.733"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/title"
@@ -80,17 +67,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginTop="192dp"
             android:text="@string/instructions"
             android:textSize="40sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wafer" />
 
-    </android.support.constraint.ConstraintLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/wafer_bg" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
