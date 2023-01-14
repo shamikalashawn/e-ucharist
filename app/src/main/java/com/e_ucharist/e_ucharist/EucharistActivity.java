@@ -3,7 +3,6 @@ package com.e_ucharist.e_ucharist;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
-import android.annotation.NonNull;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class EucharistActivity extends AppCompatActivity {

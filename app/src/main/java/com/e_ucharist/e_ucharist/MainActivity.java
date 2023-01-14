@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.asynclayoutinflater.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,12 +23,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //make website link clickable
-        TextView website = (TextView) findViewById(R.id.website);
+        TextView website = findViewById(R.id.website);
         website.setMovementMethod(LinkMovementMethod.getInstance());
 
-        FrameLayout mainLayout = (FrameLayout) findViewById(R.id.main_layout);
-        final ImageView wafer = (ImageView) findViewById(R.id.wafer_bg);
-        final TextView instructions = (TextView) findViewById(R.id.instructions);
+        FrameLayout mainLayout = findViewById(R.id.main_layout);
+        final ImageView wafer = findViewById(R.id.wafer_bg);
+        final TextView instructions = findViewById(R.id.instructions);
 
         wafer.setOnClickListener(v -> startIntent());
 

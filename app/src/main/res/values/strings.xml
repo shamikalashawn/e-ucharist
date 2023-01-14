@@ -1,11 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">E-ucharist</string>
-    <string name="information_menu">About</string>
-    <string name="eucharist_menu">E-ucharist</string>
-    <string name="title_activity_info">InfoActivity</string>
+    <string name="information_menu" tools:ignore="MissingTranslation">About</string>
+    <string name="eucharist_menu" tools:ignore="MissingTranslation">E-ucharist</string>
+    <string name="title_activity_info" tools:ignore="MissingTranslation">InfoActivity</string>
     <string name="instructions">Press to begin</string>
     <string name="website"><a href="https://e-ucharist.com">e-ucharist.com</a></string>
-    <string name="preparation">Preparation</string>
+    <string name="preparation">Prepare yourself for digital communion, then press when ready to proceed.</string>
     <string name="communion0">"My Jesus,"</string>
     <string name="communion1">"I believe that You are present in the Most Holy Sacrament."</string>
     <string name="communion2">"I love You above all things, and I desire to receive You into my soul."</string>
