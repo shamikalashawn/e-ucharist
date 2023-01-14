@@ -4,10 +4,8 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -16,8 +14,6 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,8 +25,8 @@ public class EucharistActivity extends AppCompatActivity {
 
     int communionIndex;
 
-    private MediaPlayer player;
-    private float volume;
+//    private MediaPlayer player;
+//    private float volume;
 
 //    private Vibrator vibration;
 
@@ -43,7 +39,7 @@ public class EucharistActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_eucharist);
 
-        volume = 1;
+//        volume = 1;
 
         //call MusicService
         //startService(new Intent(this, MusicService.class));
@@ -52,9 +48,9 @@ public class EucharistActivity extends AppCompatActivity {
 //        vibration = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
         //Creates a global player MediaPlayer object to play sound
-        player = MediaPlayer.create(this, R.raw.singing_bowl);
-        player.setLooping(true);
-        player.start();
+//        player = MediaPlayer.create(this, R.raw.singing_bowl);
+//        player.setLooping(true);
+//        player.start();
 
 
         communion = Arrays.asList(
@@ -99,7 +95,7 @@ public class EucharistActivity extends AppCompatActivity {
 
                     @Override
                     public void onAnimationEnd(@NonNull Animator animation){
-                        startFadeOut();
+//                        startFadeOut();
                         Intent intent = new Intent(EucharistActivity.this, MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -124,7 +120,7 @@ public class EucharistActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
-        player.stop();
+//        player.stop();
     }
 
     @Override
@@ -135,57 +131,57 @@ public class EucharistActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        // User clicked on a menu option in the app bar overflow menu
-        switch (item.getItemId()){
-            // Respond to a click on the "E-ucharist" menu option
-            case R.id.eucharist_menu:
-                //Create intent and open Home screen/Main Activity
-                Intent homeIntent = new Intent(EucharistActivity.this, MainActivity.class);
-                startActivity(homeIntent);
-                return true;
-            // Respond to a click on the "About" menu option
-            case R.id.about_menu:
-                Intent aboutIntent = new Intent(EucharistActivity.this, AboutActivity.class);
-                startActivity(aboutIntent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item){
+//        // User clicked on a menu option in the app bar overflow menu
+//        switch (item.getItemId()){
+//            // Respond to a click on the "E-ucharist" menu option
+//            case R.id.eucharist_menu:
+//                //Create intent and open Home screen/Main Activity
+//                Intent homeIntent = new Intent(EucharistActivity.this, MainActivity.class);
+//                startActivity(homeIntent);
+//                return true;
+//            // Respond to a click on the "About" menu option
+//            case R.id.about_menu:
+//                Intent aboutIntent = new Intent(EucharistActivity.this, AboutActivity.class);
+//                startActivity(aboutIntent);
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
-    private void startFadeOut(){
-        final int FADE_DURATION = 2000; //The duration of the fade
-        //The amount of time between volume changes. The smaller this is, the smoother the fade
-        final int FADE_INTERVAL = 250;
-        final int MAX_VOLUME = 1; //The volume will decrease from 1 to 0
-        int numberOfSteps = FADE_DURATION/FADE_INTERVAL; //Calculate the number of fade steps
-        //Calculate by how much the volume changes each step
-        final float deltaVolume = MAX_VOLUME / (float)numberOfSteps;
-
-        //Create a new Timer and Timer task to run the fading outside the main UI thread
-        final Timer timer = new Timer(true);
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                fadeOutStep(deltaVolume); //Do a fade step
-                //Cancel and Purge the Timer if the desired volume has been reached
-                if(volume<=0){
-                    timer.cancel();
-                    timer.purge();
-                    player.stop();
-                }
-
-            }
-        };
-
-        timer.schedule(timerTask,FADE_INTERVAL,FADE_INTERVAL);
-    }
-
-    private void fadeOutStep(float deltaVolume){
-        player.setVolume(volume, volume);
-        volume -= deltaVolume;
-
-    }
+//    private void startFadeOut(){
+//        final int FADE_DURATION = 2000; //The duration of the fade
+//        //The amount of time between volume changes. The smaller this is, the smoother the fade
+//        final int FADE_INTERVAL = 250;
+//        final int MAX_VOLUME = 1; //The volume will decrease from 1 to 0
+//        int numberOfSteps = FADE_DURATION/FADE_INTERVAL; //Calculate the number of fade steps
+//        //Calculate by how much the volume changes each step
+//        final float deltaVolume = MAX_VOLUME / (float)numberOfSteps;
+//
+//        //Create a new Timer and Timer task to run the fading outside the main UI thread
+//        final Timer timer = new Timer(true);
+//        TimerTask timerTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//                fadeOutStep(deltaVolume); //Do a fade step
+//                //Cancel and Purge the Timer if the desired volume has been reached
+//                if(volume<=0){
+//                    timer.cancel();
+//                    timer.purge();
+//                    player.stop();
+//                }
+//
+//            }
+//        };
+//
+//        timer.schedule(timerTask,FADE_INTERVAL,FADE_INTERVAL);
+//    }
+//
+//    private void fadeOutStep(float deltaVolume){
+//        player.setVolume(volume, volume);
+//        volume -= deltaVolume;
+//
+//    }
 }

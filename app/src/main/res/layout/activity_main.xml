@@ -10,8 +10,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-
         >
 
         <ImageView
@@ -79,3 +77,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
+
+<!--TODO Figure out how to bring back the menu as a settings gear and allow user to turn singing bowl sound on or off-->
+<!--TODO Figure out how to responsively center the instructions on the wafer-->
