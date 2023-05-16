@@ -14,4 +14,7 @@
     <string name="communion5">"Never permit me to be separated from You."</string>
     <string name="communion6">"Amen."</string>
     <string name="title">E-ucharist</string>
+    <string name="bg_desc">image background</string>
+    <string name="wafer_desc">wafer image</string>
+
 </resources>
