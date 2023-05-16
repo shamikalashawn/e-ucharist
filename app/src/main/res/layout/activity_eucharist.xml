@@ -14,15 +14,14 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/wafer_image"
         android:scaleType="centerCrop"
-
-        />
+        android:contentDescription="@string/wafer_desc" />
 
     <ImageView
         android:id="@+id/wafer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.4"
-
+        android:contentDescription="@string/wafer_desc"
         android:scaleType="fitCenter" />
 
     <TextView
