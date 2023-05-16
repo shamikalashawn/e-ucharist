@@ -12,9 +12,8 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/wafer_image_bg"
+        app:srcCompat="@drawable/wafer_image"
         android:scaleType="centerCrop"
-        android:contentDescription="@string/bg_desc"
 
         />
 
@@ -23,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.4"
-        android:contentDescription="@string/wafer_desc"
+
         android:scaleType="fitCenter" />
 
     <TextView
